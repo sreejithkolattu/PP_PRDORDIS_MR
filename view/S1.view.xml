@@ -1,0 +1,221 @@
+<!--
+
+    Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+
+-->
+<core:View xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml" id="ppmrpview312" controllerName="i2d.pp.prdorderissue.monitor.view.S1"
+	xmlns:mrp="i2d.pp.mrpcockpit.reuse.controls" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" >
+
+	<Page id="page" title="{i18n>FULLSCREEN_TITLE}" class="sapMRPListPage">
+		<content>
+			<l:Grid hSpacing="2" vSpacing="1">
+				<l:content>
+								
+					<!-- ==|== Object Header ========================================================== -->														
+					<core:Fragment
+						fragmentName="i2d.pp.mrpcockpit.reuse.fragments.ObjectHeader"
+						type="XML" />
+															
+                    <!-- ==|== Shortage ===============================================================	-->	
+					<core:Fragment
+						fragmentName="i2d.pp.mrpcockpit.reuse.fragments.FilterShortageDefinition"
+						type="XML" />					
+
+                    <!-- ==|== No Time Horizon ======================================================== -->		
+                    	
+                    <!-- ==|== Facet Filter =========================================================== -->			
+					<core:Fragment
+						fragmentName="i2d.pp.mrpcockpit.reuse.fragments.FilterFacetFilter"
+						type="XML" />
+
+								
+					<!-- ==|== Table ================================================================== -->			
+					<Table id="v312Table" mode="MultiSelect" inset="false" width="auto"
+						selectionChange="onItemSelection" updateStarted="onItemsUpdateStarted" updateFinished="onItemsUpdateFinished">
+						<headerToolbar>
+							<Toolbar>
+                             <Label text="{i18n>Results}"></Label>
+                             <ToolbarSpacer></ToolbarSpacer>
+                              <!-- Add the Personalization button -->
+                              <Button id="v312TableSettingsButton" icon="sap-icon://sort" tap="onViewSettingsDialogButtonPressed" tooltip="{i18n>xtolTableOptions}"/>
+                              <Button id="v312TablePersoButton" icon="sap-icon://action-settings" tap="onPersoButtonPressed" tooltip="{i18n>xtolTablePersonalization}" />               
+                           </Toolbar>
+						</headerToolbar>
+						<layoutData>
+							<l:GridData span="L12 M12 S12">
+							</l:GridData>
+						</layoutData>
+                    <columns>    
+                                                                                                     
+                       <Column id="v312MaterialExternalID"  hAlign="Left" visible="true" app:mrpcoDataField="MaterialName,MaterialExternalID">
+                          <Label tooltip="{i18n>MaterialExternalID}"  text="{i18n>MaterialExternalID}"/>
+                       </Column>                                                                                                             
+                       <Column id="v312MRPElementCategoryShortName" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="MRPElementCategoryShortName,MRPElementCategory">
+                          <Label tooltip="{i18n>MRPElementCategoryShortName}"  text="{i18n>MRPElementCategoryShortName}"/>
+                       </Column>                        
+                       <Column id="v312MRPElementCategoryName" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="MRPElementCategoryName" >
+                          <Label tooltip="{i18n>MRPElementCategoryName}"  text="{i18n>MRPElementCategoryName}"/>
+                       </Column>                            
+                       <Column id="v312ManufacturingOrderTypeName" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="ManufacturingOrderTypeName,ManufacturingOrderType" >
+                          <Label tooltip="{i18n>ManufacturingOrderTypeName}"  text="{i18n>ManufacturingOrderTypeName}"/>
+                       </Column>                        
+                       <Column id="v312MRPElement" minScreenWidth="Large" demandPopin="true" hAlign="Right" visible="false" app:mrpcoDataField="MRPElement,MRPElementItem">
+                          <Label tooltip="{i18n>MRPElement}" text="{i18n>MRPElement}" />
+                       </Column>                        
+                       <Column id="v312PlannedStartEndDate" minScreenWidth="Medium" demandPopin="true" hAlign="Center" visible="true" app:mrpcoDataField="MfgOrderPlannedStartDate,MfgOrderPlannedEndDate">
+                          <Label tooltip="{i18n>xtolPlannedStartEndDate}"  text="{i18n>PlannedStartEndDate}"/>
+                       </Column>                                                                        
+                       <Column id="v312MRPElementOpenQuantity" minScreenWidth="Medium" demandPopin="true" hAlign="Right" visible="true" app:mrpcoDataField="MRPElementOpenQuantity">
+                          <Label tooltip="{i18n>xtolMRPElementOpenQuantity}"  text="{i18n>MRPElementOpenQuantity}"/>
+                       </Column>
+                       <Column id="v312MfgOrderPlannedTotalQty" minScreenWidth="Large" demandPopin="true" hAlign="Right" visible="false" app:mrpcoDataField="MfgOrderPlannedTotalQty">
+                          <Label tooltip="{i18n>xtolMfgOrderPlannedTotalQty}"  text="{i18n>MfgOrderPlannedTotalQty}"/>
+                       </Column>  
+                       <Column id="v312MfgOrderProgressStatus" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="true" app:mrpcoDataField="MfgOrderProgressStatusName">
+                          <Label tooltip="{i18n>MfgOrderProgressStatus}"  text="{i18n>MfgOrderProgressStatus}"/>
+                       </Column>
+                       <Column id="v312MfgOrderProblemCategory" width="6.5rem" hAlign="Center" visible="true" app:mrpcoDataField="MfgOrderProblemCategory">
+                          <Label tooltip="{i18n>xtolMfgOrderProblemCategory}"  text="{i18n>MfgOrderProblemCategory}"/>
+                       </Column>                      
+                       <Column id="v312LateSupplyQuantity" minScreenWidth="Large" demandPopin="true" hAlign="Right" visible="false" app:mrpcoDataField="LateSupplyQuantity">
+                          <Label tooltip="{i18n>xtolLateSupplyQuantity}"  text="{i18n>LateSupplyQuantity}"/>
+                       </Column>                       
+                       <Column id="v312LateSupplyEarliestDemandDate" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="LateSupplyEarliestDemandDate">
+                          <Label tooltip="{i18n>LateSupplyEarliestDemandDate}"  text="{i18n>LateSupplyEarliestDemandDate}"/>
+                       </Column>                         
+                       <Column id="v312LatenessDurationInWorkDays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="true" app:mrpcoDataField="LatenessDurationInWorkDays">
+                          <Label tooltip="{i18n>LatenessDurationInWorkDays}"  text="{i18n>LatenessDurationInWorkDays}"/>
+                       </Column>                                                                   
+                       <Column id="v312ManufacturingOrderIsLate" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="ManufacturingOrderIsLate">
+                          <Label tooltip="{i18n>ManufacturingOrderIsLate}"  text="{i18n>ManufacturingOrderIsLate}"/>
+                       </Column>                                           
+                       <Column id="v312ProductionVersion" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="ProductionVersion">
+                          <Label tooltip="{i18n>xtolProductionVersion}" text="{i18n>ProductionVersion}" />
+                       </Column> 
+                       <Column id="v312ProductionSupervisor" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="ProductionSupervisor">
+                          <Label tooltip="{i18n>xtolProductionSupervisor}" text="{i18n>ProductionSupervisor}" />
+                       </Column> 
+                       <Column id="v312ProductionLine" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="ProductionLine">
+                          <Label tooltip="{i18n>xtolProductionLine}" text="{i18n>ProductionLine}" />
+                       </Column>   
+                       <Column id="v312MRPController" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="MRPController">
+                          <Label tooltip="{i18n>MRPController}"  text="{i18n>MRPController}"/>                       
+                       </Column>
+                       <Column id="v312MRPPlant" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="MRPPlant">
+                          <Label tooltip="{i18n>MRPPlant}"  text="{i18n>MRPPlant}"/>
+                       </Column>   
+                       <Column id="v312MRPArea" minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="MRPArea">
+                          <Label tooltip="{i18n>MRPArea}" text="{i18n>MRPArea}"/>
+                       </Column>  
+                       <Column id="v312StorageLocation"  minScreenWidth="Large" demandPopin="true" hAlign="Left" visible="false" app:mrpcoDataField="StorageLocation">
+                          <Label tooltip="{i18n>StorageLocation}"  text="{i18n>StorageLocation}"/>
+                       </Column>
+                       <Column id="v312NumberOfComponentsWithProblems" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="true" app:mrpcoDataField="NumberOfComponentsWithProblems">
+                          <Label tooltip="{i18n>xtolNumberOfComponentsWithProblems}"  text="{i18n>NumberOfComponentsWithProblems}"/>
+                       </Column>
+                       <Column id="v312MaximumDelayInWorkDays" minScreenWidth="Large" demandPopin="true" hAlign="Center"  visible="true" app:mrpcoDataField="MaximumDelayInWorkDays">
+                          <Label tooltip="{i18n>MaximumDelayInWorkDays}"  text="{i18n>MaximumDelayInWorkDays}"/>
+                       </Column>
+                       <Column id="v312MaximumDelayInDays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="MaximumDelayInDays">
+                          <Label tooltip="{i18n>MaximumDelayInDays}" text="{i18n>MaximumDelayInDays}"/>
+                       </Column>
+                       <Column id="v312DurnPlndStatusToTodayInWrkdays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="true" app:mrpcoDataField="DurnPlndStatusToTodayInWrkdays">
+                          <Label tooltip="{i18n>xtolDurnPlndStatusToTodayInWrkdays}"  text="{i18n>DurnPlndStatusToTodayInWrkdays}"/>
+                       </Column>  
+                       <Column id="v312DurnPlndStatusToTodayInDays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="DurnPlndStatusToTodayInDays">
+                          <Label tooltip="{i18n>xtolDurnPlndStatusToTodayInDays}"  text="{i18n>DurnPlndStatusToTodayInDays}"/>
+                       </Column>                                                                                                    
+                       <Column id="v312MfgOrderProgressNextStatus" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="MfgOrderProgressNextStatusName">
+                          <Label tooltip="{i18n>MfgOrderProgressNextStatus}"  text="{i18n>MfgOrderProgressNextStatus}"/>
+                       </Column>                                             
+                       <Column id="v312DurationToNextStatusInDays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="DurationToNextStatusInDays">
+                          <Label tooltip="{i18n>DurationToNextStatusInDays}"  text="{i18n>DurationToNextStatusInDays}"/>
+                       </Column>                                                                                                                                                                                                                               
+                       <Column id="v312DurationToNextStatusInWorkDays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="DurationToNextStatusInWorkDays">
+                          <Label tooltip="{i18n>xtolDurationToNextStatusInWorkDays}"  text="{i18n>DurationToNextStatusInWorkDays}"/>
+                       </Column>                        
+                       <Column id="v312DurationToReleaseInWorkdays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="DurationToReleaseInWorkdays">
+                          <Label tooltip="{i18n>xtolDurationToReleaseInWorkdays}"  text="{i18n>DurationToReleaseInWorkdays}"/>
+                       </Column>                        
+                       <Column id="v312DurationToStartInWorkdays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="DurationToStartInWorkdays">
+                          <Label tooltip="{i18n>xtolDurationToStartInWorkdays}"  text="{i18n>DurationToStartInWorkdays}"/>
+                       </Column>                        
+                       <Column id="v312DurationToFinishInWorkdays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="DurationToFinishInWorkdays">
+                          <Label tooltip="{i18n>xtolDurationToFinishInWorkdays}"  text="{i18n>DurationToFinishInWorkdays}"/>
+                       </Column>                        
+                       <Column id="v312DurationToGRInWorkdays" minScreenWidth="Large" demandPopin="true" hAlign="Center" visible="false" app:mrpcoDataField="DurationToGRInWorkdays">
+                          <Label tooltip="{i18n>xtolDurationToGRInWorkdays}"  text="{i18n>DurationToGRInWorkdays}"/>
+                       </Column>                                                                                                                                                                     
+                                                                                                                                                                                                                                                             
+						<!-- ===== Extension Point - Add new Columns ===== -->  
+						<core:ExtensionPoint name="extPrdOrderIssueAddColumns" />
+                </columns>
+                    <items>
+                        <ColumnListItem>
+                           <cells> 
+                                                                                                                                  
+                               <ObjectIdentifier title="{MaterialName}" text="{MaterialExternalID}"  class="sapMRPObjectIdentifier" />                                 
+ 							   <Text text="{MRPElementCategoryShortName}"/>																	                                                                                                               
+                               <Text text="{MRPElementCategoryName}" />     
+                               <mrp:ObjectIdentifier title="{ManufacturingOrderTypeName}" text="{ManufacturingOrderType}" class="sapMRPNormal" />                                                                                                                            
+                               <ObjectIdentifier title="{path: 'MRPElement' , formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.leadingZeros'}" text="{path: 'MRPElementItem' , formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.leadingZeros'}" />                                                                                                                        
+                               <l:VerticalLayout class="sapMRPVlt">
+									<Text text="{path: 'MfgOrderPlannedStartDate' , formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDateShort'}"/>
+									<Text text="{path: 'MfgOrderPlannedEndDate' , formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDateShort'}" />
+							   </l:VerticalLayout>
+                               <Text text="{parts:[{path: 'MRPElementOpenQuantity'}, {path: 'TargetQuantityUnitDcmls'}, {path: 'UnitOfMeasureTechnicalName'}], formatter:'i2d.pp.prdorderissue.monitor.util.Formatter.formatQuantity'}"></Text>                          
+                               <Text text="{parts:[{path: 'MfgOrderPlannedTotalQty'}, {path: 'TargetQuantityUnitDcmls'}, {path: 'UnitOfMeasureTechnicalName'}], formatter:'i2d.pp.prdorderissue.monitor.util.Formatter.formatQuantity'}"></Text>
+                               <Text text="{MfgOrderProgressStatusName}" />
+                               <l:HorizontalLayout class="sapMRPObjStatusBar">
+                                 <ObjectStatus  icon="sap-icon://BusinessSuiteInAppSymbols/icon-stock-requirements" 
+                                 				tooltip="{parts : [{path : 'LatenessDurationInWorkDays'}], formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatBaseMaterialDelayText'}" 
+                                 				state="{path: 'MfgOrderProblemCategory', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatMfgOrderProblemCatIconStockReq'}"   />
+                                 <ObjectStatus  icon="sap-icon://tree" 
+                                 			    tooltip="{parts : [{path : 'NumberOfComponentsWithProblems'}], formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatMissingComponentsText'}" 
+                                 				state="{path: 'MfgOrderProblemCategory', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatMfgOrderProblemCatIconTree'}"   />
+                                 <ObjectStatus  icon="sap-icon://gantt-bars" 
+                                 				tooltip="{parts : [{path : 'DurnPlndStatusToTodayInWrkdays'}], formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatProcessDelayText'}" 
+                                 				state="{path: 'MfgOrderProblemCategory', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatMfgOrderProblemCatIconGantt'}"   />
+                               </l:HorizontalLayout>
+                               <Text text="{parts:[{path: 'LateSupplyQuantity'}, {path: 'TargetQuantityUnitDcmls'}, {path: 'UnitOfMeasureTechnicalName'}], formatter:'i2d.pp.prdorderissue.monitor.util.Formatter.formatQuantity'}"></Text>                          
+       			               <Text text="{path: 'LateSupplyEarliestDemandDate', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDateShort' }" />                      
+                               <ObjectStatus text="{path: 'LatenessDurationInWorkDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'LatenessDurationInWorkDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatLatenessDuration'}"   />                                
+                               <core:Icon src="{path: 'ManufacturingOrderIsLate', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatIcon'}" size="0.875rem" tooltip="{path: 'ManufacturingOrderIsLate', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.pdaTooltip'}" />                                                                                                                                                                                                                                                                                                                                   
+                               <Text text="{ProductionVersion}" /> 
+                               <Text text="{ProductionSupervisor}" /> 
+                               <Text text="{ProductionLine}" />
+                               <Text text="{MRPController}" />  
+                               <Text text="{MRPPlant}" />  
+                               <Text text="{MRPArea}" />  
+                               <Text text="{StorageLocation}" />                                
+                               <ObjectStatus text="{NumberOfComponentsWithProblems}" state="{path: 'NumberOfComponentsWithProblems', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatNumberOfComponents'}"   />                                                 
+                               <ObjectStatus text="{path: 'MaximumDelayInWorkDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatComponentDelay' }" state="{path: 'MaximumDelayInWorkDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatMaximumDelay'}"   />
+                               <ObjectStatus text="{path: 'MaximumDelayInDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'MaximumDelayInDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatus'}"  />                               
+                               <ObjectStatus text="{path: 'DurnPlndStatusToTodayInWrkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'DurnPlndStatusToTodayInWrkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatus'}"   />                                     
+                               <ObjectStatus text="{path: 'DurnPlndStatusToTodayInDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'DurnPlndStatusToTodayInDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatus'}"   />
+                               <Text text="{path: 'MfgOrderProgressNextStatusName', formatter: 'i2d.pp.mrpcockpit.reuse.util.CommonFormatter.formatLineBreak' }" />                                                      
+                               <ObjectStatus text="{path: 'DurationToNextStatusInDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatusInDays' }" state="{path: 'DurationToNextStatusInDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatusInDaysState'}"   />                                                                                                                          
+                               <ObjectStatus text="{path: 'DurationToNextStatusInWorkDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatusInDays' }" state="{path: 'DurationToNextStatusInWorkDays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatusInDaysState'}"   />
+                               <ObjectStatus text="{path: 'DurationToReleaseInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'DurationToReleaseInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatus'}"   />
+                               <ObjectStatus text="{path: 'DurationToStartInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'DurationToStartInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatus'}"   />
+                               <ObjectStatus text="{path: 'DurationToFinishInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'DurationToFinishInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatus'}"   />
+                               <ObjectStatus text="{path: 'DurationToGRInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDelay' }" state="{path: 'DurationToGRInWorkdays', formatter: 'i2d.pp.prdorderissue.monitor.util.Formatter.formatDurationToNextStatus'}"   />                               
+                                              
+							   <!-- ===== Extension Point - Add new cells ===== --> 
+							   <core:ExtensionPoint name="extPrdOrderIssueAddCells" /> 
+                         </cells>
+                      </ColumnListItem>
+                   </items>
+						<layoutData>
+							<l:GridData span="L12 M12 S12">
+							</l:GridData>
+						</layoutData>
+					</Table>
+				</l:content>
+
+			</l:Grid>
+
+		</content>
+	</Page>
+</core:View>

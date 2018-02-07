@@ -1,0 +1,4 @@
+/*
+ * Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+ */
+jQuery.sap.declare("i2d.pp.prdorderissue.monitor.Configuration");jQuery.sap.require("sap.ca.scfld.md.ConfigurationBase");jQuery.sap.require("sap.ca.scfld.md.app.Application");sap.ca.scfld.md.ConfigurationBase.extend("i2d.pp.prdorderissue.monitor.Configuration",{oServiceParams:{serviceList:[{name:"PP_MRP_COCKPIT_SRV",masterCollection:"ManufacturingOrders",serviceUrl:"/sap/opu/odata/sap/PP_MRP_COCKPIT_SRV/",fRequestFailed:function(){},isDefault:true,mockedDataSource:"/i2d.pp.prdorderissue.monitor/model/metadata.xml"}]},setApplicationFacade:function(a){i2d.pp.prdorderissue.monitor.Configuration.oApplicationFacade=a},getServiceParams:function(){return this.oServiceParams},getAppConfig:function(){return this.oAppConfig},getServiceList:function(){return this.oServiceParams.serviceList},getMasterKeyAttributes:function(){return["Id"]}});
